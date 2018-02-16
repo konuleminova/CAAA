@@ -8,7 +8,7 @@ import com.google.gson.annotations.SerializedName;
 
 public class LoginResponse {
     @SerializedName("Id")
-    private int id;
+    private Integer id;
     @SerializedName("MessageId")
     private int messageId;
     @SerializedName("Token")
@@ -122,11 +122,11 @@ public class LoginResponse {
         this.url = url;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
