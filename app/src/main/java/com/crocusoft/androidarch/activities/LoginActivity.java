@@ -3,18 +3,23 @@ package com.crocusoft.androidarch.activities;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
+
 import com.crocusoft.androidarch.R;
 import com.crocusoft.androidarch.api.ApiClient;
 import com.crocusoft.androidarch.api.ApiInterface;
 import com.crocusoft.androidarch.model.LoginRequest;
 import com.crocusoft.androidarch.model.LoginResponse;
 import com.crocusoft.androidarch.utilities.SharedPreferenceUtils;
+
 import retrofit2.Callback;
 import retrofit2.Response;
+
 import static com.crocusoft.androidarch.utilities.Constants.API_KEY;
 import static com.crocusoft.androidarch.utilities.Constants.AUTHENTICATION_ISSUE;
 import static com.crocusoft.androidarch.utilities.Constants.AUTHORIZATION_ISSUE;
@@ -31,10 +36,13 @@ import static com.crocusoft.androidarch.utilities.Constants.VIOLATION_UNIQUE_KEY
 import static com.crocusoft.androidarch.utilities.Constants.WRONG_API_KEY;
 import static com.crocusoft.androidarch.utilities.Constants.WRONG_OLD_PASSWORD;
 import static com.crocusoft.androidarch.utilities.Constants.WRONG_USERNAME_PASSWORD;
+import static com.crocusoft.androidarch.utilities.Helper.setErrorMessage;
 
 public class LoginActivity extends AppCompatActivity {
     Button btnSave;
+    EditText editTextUsername, editTextPassword;
     SharedPreferenceUtils sharedPreferenceUtils;
+
     @Override
     protected void onResume() {
         super.onResume();
@@ -49,22 +57,40 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        sharedPreferenceUtils = new SharedPreferenceUtils(this);
-        btnSave = (Button) findViewById(R.id.btnSave);
+        intiViews();
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                login();
+                if (TextUtils.isEmpty(editTextUsername.getText().toString())) {
+                    editTextUsername.setError(getResources().getString(R.string.error_username));
+                    editTextUsername.requestFocus();
+                }
+                else
+                if (TextUtils.isEmpty(editTextPassword.getText().toString())) {
+                    editTextPassword.setError(getResources().getString(R.string.error_password));
+                    editTextPassword.requestFocus();
+                } else {
+                    login();
+                }
             }
         });
+    }
+
+    public void intiViews() {
+        sharedPreferenceUtils = new SharedPreferenceUtils(this);
+        btnSave = (Button) findViewById(R.id.btnSave);
+        editTextUsername = (EditText) findViewById(R.id.edittext_username);
+        editTextPassword = (EditText) findViewById(R.id.edittext_password);
     }
 
     public void login() {
         ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
         LoginRequest loginRequest = new LoginRequest();
-        loginRequest.setUsername("ceyhun-auditor");
-        loginRequest.setPassword("12341234");
+        loginRequest.setUsername(editTextUsername.getText().toString());
+        loginRequest.setPassword(editTextPassword.getText().toString());
         loginRequest.setApikey(API_KEY);
+
+
         apiInterface.login(loginRequest).enqueue(new Callback<LoginResponse>() {
             @Override
             public void onResponse(retrofit2.Call<LoginResponse> call, Response<LoginResponse> response) {
@@ -75,30 +101,55 @@ public class LoginActivity extends AppCompatActivity {
                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                     startActivity(intent);
                 } else {
-                    Toast.makeText(getBaseContext(), "transaction id is not exist", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getBaseContext(), getResources().getString(R.string.error_transactionID), Toast.LENGTH_LONG).show();
                 }
-                switch (response.body().getMessageId()){
-                    case 1000: setErrorMessage(SUCCESSFULL); break;
-                    case 1001:setErrorMessage(AUTHENTICATION_ISSUE);break;
-                    case 1002:setErrorMessage(AUTHORIZATION_ISSUE);break;
-                    case 1003:setErrorMessage(DATABASE_EXCEPTION);break;
-                    case 1004:setErrorMessage(DALC_EXCEPTION);break;
-                    case 1005:setErrorMessage(WRONG_USERNAME_PASSWORD);break;
-                    case 1006:setErrorMessage(WRONG_API_KEY);break;
-                    case 1007:setErrorMessage(NOT_VALIDATED_DATA);break;
-                    case 1008:setErrorMessage(COULD_NOT_DELETE_SELF);break;
-                    case 1009:setErrorMessage(VIOLATION_FOREIGN_KEY);break;
-                    case 1010:setErrorMessage(WRONG_OLD_PASSWORD);break;
-                    case 1012:setErrorMessage(DATA_NOT_FOUND);break;
-                    case 1013:setErrorMessage(VIOLATION_UNIQUE_KEY);break;
+                switch (response.body().getMessageId()) {
+                    case 1000:
+                        setErrorMessage(getBaseContext(), SUCCESSFULL);
+                        break;
+                    case 1001:
+                        setErrorMessage(getBaseContext(), AUTHENTICATION_ISSUE);
+                        break;
+                    case 1002:
+                        setErrorMessage(getBaseContext(), AUTHORIZATION_ISSUE);
+                        break;
+                    case 1003:
+                        setErrorMessage(getBaseContext(), DATABASE_EXCEPTION);
+                        break;
+                    case 1004:
+                        setErrorMessage(getBaseContext(), DALC_EXCEPTION);
+                        break;
+                    case 1005:
+                        setErrorMessage(getBaseContext(), WRONG_USERNAME_PASSWORD);
+                        break;
+                    case 1006:
+                        setErrorMessage(getBaseContext(), WRONG_API_KEY);
+                        break;
+                    case 1007:
+                        setErrorMessage(getBaseContext(), NOT_VALIDATED_DATA);
+                        break;
+                    case 1008:
+                        setErrorMessage(getBaseContext(), COULD_NOT_DELETE_SELF);
+                        break;
+                    case 1009:
+                        setErrorMessage(getBaseContext(), VIOLATION_FOREIGN_KEY);
+                        break;
+                    case 1010:
+                        setErrorMessage(getBaseContext(), WRONG_OLD_PASSWORD);
+                        break;
+                    case 1012:
+                        setErrorMessage(getBaseContext(), DATA_NOT_FOUND);
+                        break;
+                    case 1013:
+                        setErrorMessage(getBaseContext(), VIOLATION_UNIQUE_KEY);
+                        break;
                 }
+
             }
-            private  void setErrorMessage(String errorMessage){
-                Toast.makeText(getBaseContext(),errorMessage,Toast.LENGTH_LONG).show();
-            }
+
             @Override
             public void onFailure(retrofit2.Call<LoginResponse> call, Throwable t) {
-                Toast.makeText(getBaseContext(), "fail", Toast.LENGTH_LONG).show();
+                Toast.makeText(getBaseContext(), getResources().getString(R.string.system_fail), Toast.LENGTH_LONG).show();
             }
         });
     }

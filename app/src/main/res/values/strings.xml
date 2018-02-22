@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">CAAA</string>
+    <string name="error_username">Username is not entered</string>
+    <string name="error_password">Password is not entered</string>
+    <string name="error_transactionID">Transaction id is not exist</string>
+    <string name="system_fail">System fail</string>
+    <string name="hint_username">username</string>
+    <string name="hint_password">password</string>
+    <string name="button_text">Ok</string>
+
+
 </resources>
