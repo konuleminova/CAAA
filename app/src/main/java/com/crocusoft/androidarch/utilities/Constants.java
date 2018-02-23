@@ -30,5 +30,8 @@ public class Constants {
     public static String KEY_ID = "transaction_ID";
     public static String KEY_TOKEN = "token";
     public static String DEFAULT_VALUE = "null";
+    //fragments
+    public static String KEY_ITEM_NAME ="item_name";
+    public static String KEY_ITEM_CONTENT ="item_content";
 
 }

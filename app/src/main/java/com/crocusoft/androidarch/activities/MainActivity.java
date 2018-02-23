@@ -1,37 +1,31 @@
 package com.crocusoft.androidarch.activities;
 
-import android.app.Fragment;
-import android.app.FragmentManager;
-import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.ToolbarWidgetWrapper;
-import android.view.Gravity;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.RelativeLayout;
-import android.widget.Toast;
-import android.widget.Toolbar;
 
 import com.crocusoft.androidarch.R;
 import com.crocusoft.androidarch.fragments.ListFragment;
 import com.crocusoft.androidarch.fragments.RecyclerFragment;
-import com.crocusoft.androidarch.recyclerview.RecyclerAdapter;
-import com.crocusoft.androidarch.recyclerview.RecyclerObjects;
 
 public class MainActivity extends AppCompatActivity {
     DrawerLayout drawerLayout;
     android.support.v7.widget.Toolbar toolbar;
     ActionBarDrawerToggle actionBarDrawerToggle;
+    int id;
+    RecyclerFragment recyclerFragment;
+    ListFragment listFragment;
+    android.support.v4.app.FragmentManager fragmentManager;
+    FragmentTransaction fragmentTransaction;
+    String TAG_FRAGMENT = "tag";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,9 +36,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void setFragment(android.support.v4.app.Fragment fragment) {
-        android.support.v4.app.FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.frame_container, fragment);
+        fragmentManager = getSupportFragmentManager();
+        fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.frame_container, fragment, TAG_FRAGMENT);
+        fragmentTransaction.addToBackStack(TAG_FRAGMENT);
         fragmentTransaction.commit();
     }
 
@@ -74,15 +69,15 @@ public class MainActivity extends AppCompatActivity {
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                int id = item.getItemId();
+                id = item.getItemId();
                 switch (id) {
                     case R.id.recyclerView:
-                        RecyclerFragment recyclerFragment = new RecyclerFragment();
+                        recyclerFragment = new RecyclerFragment();
                         setFragment(recyclerFragment);
                         drawerLayout.closeDrawers();
                         break;
                     case R.id.listView:
-                        ListFragment listFragment = new ListFragment();
+                        listFragment = new ListFragment();
                         setFragment(listFragment);
                         drawerLayout.closeDrawers();
                         break;
@@ -95,13 +90,8 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        //super.onBackPressed();
-        Intent intent = new Intent(Intent.ACTION_MAIN);
-        intent.addCategory(Intent.CATEGORY_HOME);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        startActivity(intent);
-        finish();
-        System.exit(0);
+        android.support.v4.app.Fragment fragment = fragmentManager.findFragmentByTag(TAG_FRAGMENT);
+        fragmentManager.beginTransaction().remove(fragment).commit();
     }
 
 }
