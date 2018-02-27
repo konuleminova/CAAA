@@ -1,32 +1,28 @@
 package com.crocusoft.androidarch.activities;
 
-import android.content.Context;
-import android.content.Intent;
+import android.app.Dialog;
 import android.support.annotation.NonNull;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 
 import com.crocusoft.androidarch.R;
 import com.crocusoft.androidarch.fragments.ListFragment;
 import com.crocusoft.androidarch.fragments.RecyclerFragment;
-import com.crocusoft.androidarch.fragments.SetFragment;
+import com.crocusoft.androidarch.fragments.SetFragmentInterface;
 import com.crocusoft.androidarch.fragments.TabFfragment;
 
 import static com.crocusoft.androidarch.utilities.Constants.TAG_FRAGMENT;
-import static com.crocusoft.androidarch.utilities.Constants.TAG_FRAGMENT_INSIDE;
 
-public class MainActivity extends AppCompatActivity implements SetFragment {
+public class MainActivity extends AppCompatActivity implements SetFragmentInterface {
     DrawerLayout drawerLayout;
     android.support.v7.widget.Toolbar toolbar;
     ActionBarDrawerToggle actionBarDrawerToggle;

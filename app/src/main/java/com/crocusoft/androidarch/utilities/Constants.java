@@ -34,6 +34,5 @@ public class Constants {
     public static String KEY_ITEM_NAME = "item_name";
     public static String KEY_ITEM_CONTENT = "item_content";
     public static String  TAG_FRAGMENT = "tag";
-    public static String  TAG_FRAGMENT_INSIDE = "tag inside";
 
 }

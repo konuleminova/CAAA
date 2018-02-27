@@ -1,6 +1,8 @@
 package com.crocusoft.androidarch.activities;
 
+import android.app.Dialog;
 import android.content.Intent;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -13,6 +15,7 @@ import android.widget.Toast;
 import com.crocusoft.androidarch.R;
 import com.crocusoft.androidarch.api.ApiClient;
 import com.crocusoft.androidarch.api.ApiInterface;
+import com.crocusoft.androidarch.asynctask.AsyncTaskUtil;
 import com.crocusoft.androidarch.model.LoginRequest;
 import com.crocusoft.androidarch.model.LoginResponse;
 import com.crocusoft.androidarch.utilities.SharedPreferenceUtils;
@@ -42,6 +45,7 @@ public class LoginActivity extends AppCompatActivity {
     Button btnSave;
     EditText editTextUsername, editTextPassword;
     SharedPreferenceUtils sharedPreferenceUtils;
+    Integer id;
 
     @Override
     protected void onResume() {
@@ -64,9 +68,7 @@ public class LoginActivity extends AppCompatActivity {
                 if (TextUtils.isEmpty(editTextUsername.getText().toString())) {
                     editTextUsername.setError(getResources().getString(R.string.error_username));
                     editTextUsername.requestFocus();
-                }
-                else
-                if (TextUtils.isEmpty(editTextPassword.getText().toString())) {
+                } else if (TextUtils.isEmpty(editTextPassword.getText().toString())) {
                     editTextPassword.setError(getResources().getString(R.string.error_password));
                     editTextPassword.requestFocus();
                 } else {
@@ -89,17 +91,17 @@ public class LoginActivity extends AppCompatActivity {
         loginRequest.setUsername(editTextUsername.getText().toString());
         loginRequest.setPassword(editTextPassword.getText().toString());
         loginRequest.setApikey(API_KEY);
-
-
         apiInterface.login(loginRequest).enqueue(new Callback<LoginResponse>() {
             @Override
             public void onResponse(retrofit2.Call<LoginResponse> call, Response<LoginResponse> response) {
                 if (response.body().getId() != null) {
+                    id = response.body().getId();
                     sharedPreferenceUtils.setIntegerData(KEY_ID, response.body().getId());
                     sharedPreferenceUtils.setStringData(KEY_TOKEN, response.body().getToken());
                     //sharedPreferenceUtils.clear();
                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                     startActivity(intent);
+                    finish();
                 } else {
                     Toast.makeText(getBaseContext(), getResources().getString(R.string.error_transactionID), Toast.LENGTH_LONG).show();
                 }
