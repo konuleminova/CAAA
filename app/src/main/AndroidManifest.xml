@@ -25,8 +25,7 @@
         <activity
             android:name=".activities.MainActivity"
             android:launchMode="singleTask" />
-        <activity android:name=".activities.LoginActivity">
-        </activity>
+        <activity android:name=".activities.LoginActivity"></activity>
     </application>
 
 </manifest>

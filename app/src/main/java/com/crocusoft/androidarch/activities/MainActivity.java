@@ -1,8 +1,12 @@
 package com.crocusoft.androidarch.activities;
 
+import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -15,17 +19,18 @@ import android.view.View;
 import com.crocusoft.androidarch.R;
 import com.crocusoft.androidarch.fragments.ListFragment;
 import com.crocusoft.androidarch.fragments.RecyclerFragment;
+import com.crocusoft.androidarch.fragments.SetFragment;
+import com.crocusoft.androidarch.fragments.TabFfragment;
 
-public class MainActivity extends AppCompatActivity {
+import static com.crocusoft.androidarch.utilities.Constants.TAG_FRAGMENT;
+import static com.crocusoft.androidarch.utilities.Constants.TAG_FRAGMENT_INSIDE;
+
+public class MainActivity extends AppCompatActivity implements SetFragment {
     DrawerLayout drawerLayout;
     android.support.v7.widget.Toolbar toolbar;
     ActionBarDrawerToggle actionBarDrawerToggle;
-    int id;
-    RecyclerFragment recyclerFragment;
-    ListFragment listFragment;
     android.support.v4.app.FragmentManager fragmentManager;
     FragmentTransaction fragmentTransaction;
-    String TAG_FRAGMENT = "tag";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,14 +38,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         setUpToolBar();
         setNavigationView();
-    }
+        RecyclerFragment recyclerFragment = new RecyclerFragment();
+        setFragment(null, recyclerFragment);
 
-    public void setFragment(android.support.v4.app.Fragment fragment) {
-        fragmentManager = getSupportFragmentManager();
-        fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.frame_container, fragment, TAG_FRAGMENT);
-        fragmentTransaction.addToBackStack(TAG_FRAGMENT);
-        fragmentTransaction.commit();
     }
 
     public void setUpToolBar() {
@@ -69,18 +69,22 @@ public class MainActivity extends AppCompatActivity {
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                id = item.getItemId();
+                int id = item.getItemId();
                 switch (id) {
                     case R.id.recyclerView:
-                        recyclerFragment = new RecyclerFragment();
-                        setFragment(recyclerFragment);
+                        RecyclerFragment recyclerFragment = new RecyclerFragment();
+                        setFragment(null, recyclerFragment);
                         drawerLayout.closeDrawers();
                         break;
                     case R.id.listView:
-                        listFragment = new ListFragment();
-                        setFragment(listFragment);
+                        ListFragment listFragment = new ListFragment();
+                        setFragment(TAG_FRAGMENT, listFragment);
                         drawerLayout.closeDrawers();
                         break;
+                    case R.id.tabView:
+                        TabFfragment tabFfragment = new TabFfragment();
+                        setFragment(TAG_FRAGMENT, tabFfragment);
+                        drawerLayout.closeDrawers();
                 }
                 return true;
             }
@@ -90,8 +94,22 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        android.support.v4.app.Fragment fragment = fragmentManager.findFragmentByTag(TAG_FRAGMENT);
-        fragmentManager.beginTransaction().remove(fragment).commit();
+       Fragment fragment=getSupportFragmentManager().findFragmentByTag(TAG_FRAGMENT);
+       if(fragment!=null) {
+           getSupportFragmentManager().popBackStackImmediate();
+       }
+       else {
+           finish();
+       }
+
     }
 
+    @Override
+    public void setFragment(String backstackTAG, Fragment fragment) {
+        fragmentManager = getSupportFragmentManager();
+        fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.frame_container, fragment, backstackTAG);
+        fragmentTransaction.addToBackStack(backstackTAG);
+        fragmentTransaction.commit();
+    }
 }

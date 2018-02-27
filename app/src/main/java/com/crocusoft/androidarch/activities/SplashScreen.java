@@ -30,8 +30,10 @@ public class SplashScreen extends AppCompatActivity {
                     intent = new Intent(SplashScreen.this, MainActivity.class);
                 }
                 startActivity(intent);
+                finish();
             }
         }, SPLASH_TIME_OUT);
+
 
 
     }
