@@ -8,6 +8,7 @@ import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -94,13 +95,17 @@ public class MainActivity extends AppCompatActivity implements SetFragment {
 
     @Override
     public void onBackPressed() {
-       Fragment fragment=getSupportFragmentManager().findFragmentByTag(TAG_FRAGMENT);
-       if(fragment!=null) {
-           getSupportFragmentManager().popBackStackImmediate();
-       }
-       else {
-           finish();
-       }
+        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
+            drawerLayout.closeDrawers();
+        } else {
+
+            Fragment fragment = getSupportFragmentManager().findFragmentByTag(TAG_FRAGMENT);
+            if (fragment != null) {
+                getSupportFragmentManager().popBackStackImmediate();
+            } else {
+                finish();
+            }
+        }
 
     }
 
