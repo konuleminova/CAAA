@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/recyclerView"
+            android:icon="@drawable/recycleicon"
+            android:title="Recycler View"></item>
+        <item
+            android:id="@+id/listView"
+            android:icon="@drawable/listicon"
+            android:title="List View"></item>
+        <item android:id="@+id/tabView"
+            android:title="Tab View"
+            android:icon="@drawable/tabviewicon">
+
+        </item>
+    </group>
+
+
+</menu>
