@@ -72,9 +72,9 @@ public class LoginActivity extends AppCompatActivity {
                     editTextPassword.setError(getResources().getString(R.string.error_password));
                     editTextPassword.requestFocus();
                 } else {
-                    login();
-                  // AsyncTaskUtil asyncTaskUtil=new AsyncTaskUtil(getApplicationContext());
-                  // asyncTaskUtil.execute();
+                   // login();
+                   AsyncTaskUtil asyncTaskUtil=new AsyncTaskUtil(LoginActivity.this,editTextUsername.getText().toString(),editTextPassword.getText().toString());
+                   asyncTaskUtil.execute();
                 }
             }
         });
@@ -86,7 +86,11 @@ public class LoginActivity extends AppCompatActivity {
         editTextUsername = (EditText) findViewById(R.id.edittext_username);
         editTextPassword = (EditText) findViewById(R.id.edittext_password);
     }
-
+private void setProgress(){
+        AlertDialog.Builder al=new AlertDialog.Builder(this);
+        al.setMessage("hfjhdjf");
+        //al.setIcon(R.drawable.)
+}
     public void login() {
         ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
         LoginRequest loginRequest = new LoginRequest();

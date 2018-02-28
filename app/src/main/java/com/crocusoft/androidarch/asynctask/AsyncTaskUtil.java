@@ -1,11 +1,17 @@
 package com.crocusoft.androidarch.asynctask;
 
+import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
+import android.view.View;
+import android.widget.EditText;
 import android.widget.Toast;
 
+import com.crocusoft.androidarch.R;
 import com.crocusoft.androidarch.activities.LoginActivity;
 import com.crocusoft.androidarch.activities.MainActivity;
 
@@ -35,9 +41,18 @@ public class AsyncTaskUtil extends AsyncTask<Url, String, String> {
     //ppp
     String message;
     Context context;
+    AlertDialog alertDialog;
+    String username,password;
 
-    public AsyncTaskUtil(Context context) {
+    public AsyncTaskUtil(Context context, String username, String password) {
         this.context = context;
+        this.username=username;
+        this.password=password;
+        alertDialog = new AlertDialog.Builder(context).create();
+        alertDialog.setTitle("Alert Dialog");
+        alertDialog.setMessage("Welcome to Corcusoft ");
+        alertDialog.setIcon(R.drawable.backbutton);
+        //LoginActivity activity=(LoginActivity)context;
     }
 
     @Override
@@ -51,23 +66,23 @@ public class AsyncTaskUtil extends AsyncTask<Url, String, String> {
             httpURLConnection.setReadTimeout(15000);
             httpURLConnection.setRequestMethod("POST");
             httpURLConnection.setRequestProperty("Content-Type", "application/json");
-            httpURLConnection.setRequestProperty("Accept","application/json");
+            httpURLConnection.setRequestProperty("Accept", "application/json");
             httpURLConnection.setDoInput(true);
             httpURLConnection.setDoInput(true);
-            JSONObject jsonObject=new JSONObject();
-            jsonObject.put("Username","ceyhun-auditor");
-            jsonObject.put("Password","12341234");
-            jsonObject.put("ApiKey","987654");
-            OutputStream outputStream=httpURLConnection.getOutputStream();
-            BufferedWriter bufferedWriter=new BufferedWriter(new OutputStreamWriter(outputStream,"UTF-8"));
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("Username",username);
+            jsonObject.put("Password", password);
+            jsonObject.put("ApiKey", "987654");
+            OutputStream outputStream = httpURLConnection.getOutputStream();
+            BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
             bufferedWriter.write(jsonObject.toString());
             bufferedWriter.flush();
             bufferedWriter.close();
             outputStream.close();
             //httpURLConnection.connect();
-            int responseCode=httpURLConnection.getResponseCode();
-            if(responseCode==HttpURLConnection.HTTP_OK) {
-                Log.d("fetch","url");
+            int responseCode = httpURLConnection.getResponseCode();
+            if (responseCode == HttpURLConnection.HTTP_OK) {
+                Log.d("fetch", "url");
             }
             InputStream stream = httpURLConnection.getInputStream();
             reader = new BufferedReader(new InputStreamReader(stream));
@@ -77,8 +92,8 @@ public class AsyncTaskUtil extends AsyncTask<Url, String, String> {
 
                 stringBuffer.append(line);
             }
-            JSONObject jsonObject1=new JSONObject(stringBuffer.toString());
-             message=jsonObject1.getString("MessageId");
+            JSONObject jsonObject1 = new JSONObject(stringBuffer.toString());
+            message = jsonObject1.getString("MessageId");
 
         } catch (MalformedURLException e) {
 
@@ -107,13 +122,21 @@ public class AsyncTaskUtil extends AsyncTask<Url, String, String> {
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
+
+        alertDialog.show();
     }
 
     @Override
     protected void onPostExecute(String s) {
         super.onPostExecute(s);
-        if(message.equals("1000")){
-           Log.d("fetch","htttp");
+        if (message.equals("1000")) {
+            Log.d("fetch", "successful");
+            alertDialog.dismiss();
+            Intent intent = new Intent(context, MainActivity.class);
+            context.startActivity(intent);
+
+            //  MainActivity mainActivity=new MainActivity();
+
 
         }
     }
