@@ -73,6 +73,8 @@ public class LoginActivity extends AppCompatActivity {
                     editTextPassword.requestFocus();
                 } else {
                     login();
+                  // AsyncTaskUtil asyncTaskUtil=new AsyncTaskUtil(getApplicationContext());
+                  // asyncTaskUtil.execute();
                 }
             }
         });
