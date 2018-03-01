@@ -14,6 +14,11 @@
             android:icon="@drawable/tabviewicon">
 
         </item>
+        <item android:id="@+id/broadCast"
+            android:title="Send Broadcast"
+            android:icon="@drawable/notification">
+
+        </item>
     </group>
 
 

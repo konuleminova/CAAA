@@ -17,6 +17,7 @@ import android.view.View;
 import com.crocusoft.androidarch.R;
 import com.crocusoft.androidarch.fragments.ListFragment;
 import com.crocusoft.androidarch.fragments.RecyclerFragment;
+import com.crocusoft.androidarch.fragments.SendBroadcast;
 import com.crocusoft.androidarch.fragments.SetFragmentInterface;
 import com.crocusoft.androidarch.fragments.TabFfragment;
 
@@ -81,7 +82,11 @@ public class MainActivity extends AppCompatActivity implements SetFragmentInterf
                     case R.id.tabView:
                         TabFfragment tabFfragment = new TabFfragment();
                         setFragment(TAG_FRAGMENT, tabFfragment);
-                        drawerLayout.closeDrawers();
+                        drawerLayout.closeDrawers();break;
+                    case R.id.broadCast:
+                        SendBroadcast broadcast=new SendBroadcast();
+                        setFragment(TAG_FRAGMENT,broadcast);
+                        drawerLayout.closeDrawers();break;
                 }
                 return true;
             }

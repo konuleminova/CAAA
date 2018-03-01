@@ -14,6 +14,7 @@ import android.widget.Toast;
 import com.crocusoft.androidarch.R;
 import com.crocusoft.androidarch.activities.LoginActivity;
 import com.crocusoft.androidarch.activities.MainActivity;
+import com.crocusoft.androidarch.utilities.SharedPreferenceUtils;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -32,26 +33,29 @@ import java.net.URL;
 
 import retrofit2.http.Url;
 
+import static com.crocusoft.androidarch.utilities.Constants.DEFAULT_VALUE;
+import static com.crocusoft.androidarch.utilities.Constants.KEY_ID;
+
 /**
  * Created by Asus on 2/27/2018.
  */
 
 public class AsyncTaskUtil extends AsyncTask<Url, String, String> {
-    BufferedReader reader;
-    //ppp
-    String message;
-    Context context;
-    AlertDialog alertDialog;
-    String username,password;
+    private BufferedReader reader;
+    private String message;
+    private Context context;
+    private AlertDialog alertDialog;
+    private String username, password;
+    private SharedPreferenceUtils sharedPreferenceUtils;
 
     public AsyncTaskUtil(Context context, String username, String password) {
         this.context = context;
-        this.username=username;
-        this.password=password;
+        this.username = username;
+        this.password = password;
         alertDialog = new AlertDialog.Builder(context).create();
-        alertDialog.setTitle("Alert Dialog");
-        alertDialog.setMessage("Welcome to Corcusoft ");
+        alertDialog.setMessage("Please Wait ... ");
         alertDialog.setIcon(R.drawable.backbutton);
+        sharedPreferenceUtils = new SharedPreferenceUtils(context);
         //LoginActivity activity=(LoginActivity)context;
     }
 
@@ -70,7 +74,7 @@ public class AsyncTaskUtil extends AsyncTask<Url, String, String> {
             httpURLConnection.setDoInput(true);
             httpURLConnection.setDoInput(true);
             JSONObject jsonObject = new JSONObject();
-            jsonObject.put("Username",username);
+            jsonObject.put("Username", username);
             jsonObject.put("Password", password);
             jsonObject.put("ApiKey", "987654");
             OutputStream outputStream = httpURLConnection.getOutputStream();
@@ -122,7 +126,6 @@ public class AsyncTaskUtil extends AsyncTask<Url, String, String> {
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
-
         alertDialog.show();
     }
 
@@ -131,13 +134,12 @@ public class AsyncTaskUtil extends AsyncTask<Url, String, String> {
         super.onPostExecute(s);
         if (message.equals("1000")) {
             Log.d("fetch", "successful");
-            alertDialog.dismiss();
             Intent intent = new Intent(context, MainActivity.class);
             context.startActivity(intent);
-
-            //  MainActivity mainActivity=new MainActivity();
-
-
+            ((LoginActivity) context).finish();
+        } else {
+            Toast.makeText(context, "Your username or password is incorrect", Toast.LENGTH_LONG).show();
         }
+        alertDialog.dismiss();
     }
 }
