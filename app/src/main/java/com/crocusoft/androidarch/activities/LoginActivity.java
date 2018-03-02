@@ -1,12 +1,9 @@
 package com.crocusoft.androidarch.activities;
 
-import android.app.Dialog;
 import android.content.Intent;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -15,31 +12,30 @@ import android.widget.Toast;
 import com.crocusoft.androidarch.R;
 import com.crocusoft.androidarch.api.ApiClient;
 import com.crocusoft.androidarch.api.ApiInterface;
-import com.crocusoft.androidarch.asynctask.AsyncTaskUtil;
 import com.crocusoft.androidarch.model.LoginRequest;
 import com.crocusoft.androidarch.model.LoginResponse;
-import com.crocusoft.androidarch.utilities.SharedPreferenceUtils;
+import com.crocusoft.androidarch.utility.SharedPreferenceUtils;
 
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import static com.crocusoft.androidarch.utilities.Constants.API_KEY;
-import static com.crocusoft.androidarch.utilities.Constants.AUTHENTICATION_ISSUE;
-import static com.crocusoft.androidarch.utilities.Constants.AUTHORIZATION_ISSUE;
-import static com.crocusoft.androidarch.utilities.Constants.COULD_NOT_DELETE_SELF;
-import static com.crocusoft.androidarch.utilities.Constants.DALC_EXCEPTION;
-import static com.crocusoft.androidarch.utilities.Constants.DATABASE_EXCEPTION;
-import static com.crocusoft.androidarch.utilities.Constants.DATA_NOT_FOUND;
-import static com.crocusoft.androidarch.utilities.Constants.KEY_ID;
-import static com.crocusoft.androidarch.utilities.Constants.KEY_TOKEN;
-import static com.crocusoft.androidarch.utilities.Constants.NOT_VALIDATED_DATA;
-import static com.crocusoft.androidarch.utilities.Constants.SUCCESSFULL;
-import static com.crocusoft.androidarch.utilities.Constants.VIOLATION_FOREIGN_KEY;
-import static com.crocusoft.androidarch.utilities.Constants.VIOLATION_UNIQUE_KEY;
-import static com.crocusoft.androidarch.utilities.Constants.WRONG_API_KEY;
-import static com.crocusoft.androidarch.utilities.Constants.WRONG_OLD_PASSWORD;
-import static com.crocusoft.androidarch.utilities.Constants.WRONG_USERNAME_PASSWORD;
-import static com.crocusoft.androidarch.utilities.Helper.setErrorMessage;
+import static com.crocusoft.androidarch.utility.Constants.API_KEY;
+import static com.crocusoft.androidarch.utility.Constants.AUTHENTICATION_ISSUE;
+import static com.crocusoft.androidarch.utility.Constants.AUTHORIZATION_ISSUE;
+import static com.crocusoft.androidarch.utility.Constants.COULD_NOT_DELETE_SELF;
+import static com.crocusoft.androidarch.utility.Constants.DALC_EXCEPTION;
+import static com.crocusoft.androidarch.utility.Constants.DATABASE_EXCEPTION;
+import static com.crocusoft.androidarch.utility.Constants.DATA_NOT_FOUND;
+import static com.crocusoft.androidarch.utility.Constants.KEY_ID;
+import static com.crocusoft.androidarch.utility.Constants.KEY_TOKEN;
+import static com.crocusoft.androidarch.utility.Constants.NOT_VALIDATED_DATA;
+import static com.crocusoft.androidarch.utility.Constants.SUCCESSFULL;
+import static com.crocusoft.androidarch.utility.Constants.VIOLATION_FOREIGN_KEY;
+import static com.crocusoft.androidarch.utility.Constants.VIOLATION_UNIQUE_KEY;
+import static com.crocusoft.androidarch.utility.Constants.WRONG_API_KEY;
+import static com.crocusoft.androidarch.utility.Constants.WRONG_OLD_PASSWORD;
+import static com.crocusoft.androidarch.utility.Constants.WRONG_USERNAME_PASSWORD;
+import static com.crocusoft.androidarch.utility.Helper.setErrorMessage;
 
 public class LoginActivity extends AppCompatActivity {
     Button btnSave;
@@ -73,7 +69,7 @@ public class LoginActivity extends AppCompatActivity {
                     editTextPassword.requestFocus();
                 } else {
                     login();
-                    //AsyncTaskUtil asyncTaskUtil=new AsyncTaskUtil(LoginActivity.this,editTextUsername.getText().toString(),editTextPassword.getText().toString());
+                    //LoginUserAsync asyncTaskUtil=new LoginUserAsync(LoginActivity.this,editTextUsername.getText().toString(),editTextPassword.getText().toString());
                   // asyncTaskUtil.execute();
                 }
             }

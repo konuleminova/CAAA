@@ -1,6 +1,5 @@
 package com.crocusoft.androidarch.activities;
 
-import android.app.Dialog;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
@@ -8,20 +7,24 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 
 import com.crocusoft.androidarch.R;
+import com.crocusoft.androidarch.fragments.EventBusFragment;
 import com.crocusoft.androidarch.fragments.ListFragment;
 import com.crocusoft.androidarch.fragments.RecyclerFragment;
 import com.crocusoft.androidarch.fragments.SendBroadcast;
 import com.crocusoft.androidarch.fragments.SetFragmentInterface;
 import com.crocusoft.androidarch.fragments.TabFfragment;
+import com.crocusoft.androidarch.utility.MessageEvent;
 
-import static com.crocusoft.androidarch.utilities.Constants.TAG_FRAGMENT;
+import org.greenrobot.eventbus.Subscribe;
+
+import static com.crocusoft.androidarch.utility.Constants.TAG_FRAGMENT;
 
 public class MainActivity extends AppCompatActivity implements SetFragmentInterface {
     DrawerLayout drawerLayout;
@@ -29,6 +32,8 @@ public class MainActivity extends AppCompatActivity implements SetFragmentInterf
     ActionBarDrawerToggle actionBarDrawerToggle;
     android.support.v4.app.FragmentManager fragmentManager;
     FragmentTransaction fragmentTransaction;
+    TextView navHeaderText;
+     NavigationView navigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,9 +43,16 @@ public class MainActivity extends AppCompatActivity implements SetFragmentInterf
         setNavigationView();
         RecyclerFragment recyclerFragment = new RecyclerFragment();
         setFragment(null, recyclerFragment);
+        View header=navigationView.getHeaderView(0);
+        navHeaderText=(TextView)header.findViewById(R.id.nav_header_email_text);
+        navHeaderText.setText("nav header");
+        org.greenrobot.eventbus.EventBus.getDefault().register(this);
 
     }
-
+    @Subscribe
+    public void onEvent(MessageEvent eventBus){
+        navHeaderText.setText(eventBus.getMessage());
+    }
     public void setUpToolBar() {
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.tool_bar);
@@ -63,7 +75,7 @@ public class MainActivity extends AppCompatActivity implements SetFragmentInterf
     }
 
     public void setNavigationView() {
-        final NavigationView navigationView = (NavigationView) findViewById(R.id.navigation_view);
+     navigationView = (NavigationView) findViewById(R.id.navigation_view);
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -87,6 +99,11 @@ public class MainActivity extends AppCompatActivity implements SetFragmentInterf
                         SendBroadcast broadcast=new SendBroadcast();
                         setFragment(TAG_FRAGMENT,broadcast);
                         drawerLayout.closeDrawers();break;
+                    case R.id.eventBus:
+                        EventBusFragment eventBusFragment =new EventBusFragment();
+                        setFragment(TAG_FRAGMENT, eventBusFragment);
+                        drawerLayout.closeDrawers();break;
+
                 }
                 return true;
             }

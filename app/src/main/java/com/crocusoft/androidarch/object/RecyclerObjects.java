@@ -1,4 +1,4 @@
-package com.crocusoft.androidarch.recyclerview;
+package com.crocusoft.androidarch.object;
 
 /**
  * Created by Asus on 2/19/2018.

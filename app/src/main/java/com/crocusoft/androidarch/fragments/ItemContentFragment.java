@@ -10,8 +10,8 @@ import android.widget.TextView;
 
 import com.crocusoft.androidarch.R;
 
-import static com.crocusoft.androidarch.utilities.Constants.KEY_ITEM_CONTENT;
-import static com.crocusoft.androidarch.utilities.Constants.KEY_ITEM_NAME;
+import static com.crocusoft.androidarch.utility.Constants.KEY_ITEM_CONTENT;
+import static com.crocusoft.androidarch.utility.Constants.KEY_ITEM_NAME;
 
 /**
  * Created by Asus on 2/23/2018.

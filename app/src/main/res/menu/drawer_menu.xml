@@ -19,6 +19,12 @@
             android:icon="@drawable/notification">
 
         </item>
+        <item
+            android:id="@+id/eventBus"
+            android:title="Event Bus"
+            android:icon="@drawable/eventbus">
+
+        </item>
     </group>
 
 

@@ -1,17 +1,19 @@
-package com.crocusoft.androidarch.utilities;
+package com.crocusoft.androidarch.utility;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import static com.crocusoft.androidarch.utilities.Constants.SHARED_PREF_NAME;
+import static com.crocusoft.androidarch.utility.Constants.SHARED_PREF_NAME;
 
 /**
  * Created by Asus on 2/16/2018.
  */
 
 public class SharedPreferenceUtils {
+
     Context context;
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
+
     public SharedPreferenceUtils(Context context) {
         this.context = context;
         sharedPreferences = context.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);

@@ -1,4 +1,4 @@
-package com.crocusoft.androidarch.listview;
+package com.crocusoft.androidarch.adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -9,6 +9,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.crocusoft.androidarch.R;
+import com.crocusoft.androidarch.object.ListObjects;
+
+import org.w3c.dom.Text;
 
 import java.util.List;
 
@@ -51,18 +54,21 @@ public class ListAdapter extends BaseAdapter {
         } else {
             viewHolder = (CustomViewHolder) view.getTag();
         }
-        viewHolder.itemImage.setImageResource(listObjectsList.get(i).getItemImage());
-        viewHolder.itemName.setText(listObjectsList.get(i).getItemName());
-        viewHolder.itemContent.setText(listObjectsList.get(i).getItemContent());
+        viewHolder.userId.setText(listObjectsList.get(i).getUserId());
+        viewHolder.itemImage.setImageResource(listObjectsList.get(i).getUserImage());
+        viewHolder.itemName.setText(listObjectsList.get(i).getUserName());
+        viewHolder.itemContent.setText(listObjectsList.get(i).getUserSurname());
         return view;
     }
 
     private class CustomViewHolder {
+        private TextView userId;
         private TextView itemName;
         private TextView itemContent;
         private ImageView itemImage;
 
         public CustomViewHolder(View view) {
+            userId = (TextView) view.findViewById(R.id.user_id);
             itemName = (TextView) view.findViewById(R.id.text_list_view);
             itemContent = (TextView) view.findViewById(R.id.listview_content);
             itemImage = (ImageView) view.findViewById(R.id.image_list_view);

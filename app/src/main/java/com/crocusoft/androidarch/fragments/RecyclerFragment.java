@@ -11,16 +11,16 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.crocusoft.androidarch.R;
-import com.crocusoft.androidarch.recyclerview.RecyclerAdapter;
-import com.crocusoft.androidarch.recyclerview.RecyclerObjects;
-import com.crocusoft.androidarch.recyclerview.RecycleItemClcikListener;
+import com.crocusoft.androidarch.adapters.RecyclerAdapter;
+import com.crocusoft.androidarch.object.RecyclerObjects;
+import com.crocusoft.androidarch.utility.RecycleItemClcikListener;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static android.media.CamcorderProfile.get;
-import static com.crocusoft.androidarch.utilities.Constants.KEY_ITEM_NAME;
-import static com.crocusoft.androidarch.utilities.Constants.TAG_FRAGMENT;
+import static com.crocusoft.androidarch.utility.Constants.KEY_ITEM_NAME;
+import static com.crocusoft.androidarch.utility.Constants.TAG_FRAGMENT;
 
 /**
  * Created by Asus on 2/20/2018.

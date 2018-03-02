@@ -4,14 +4,13 @@ import android.content.Intent;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 
 import com.crocusoft.androidarch.R;
-import com.crocusoft.androidarch.utilities.SharedPreferenceUtils;
+import com.crocusoft.androidarch.utility.SharedPreferenceUtils;
 
-import static com.crocusoft.androidarch.utilities.Constants.DEFAULT_VALUE;
-import static com.crocusoft.androidarch.utilities.Constants.KEY_TOKEN;
-import static com.crocusoft.androidarch.utilities.Constants.SPLASH_TIME_OUT;
+import static com.crocusoft.androidarch.utility.Constants.DEFAULT_VALUE;
+import static com.crocusoft.androidarch.utility.Constants.KEY_TOKEN;
+import static com.crocusoft.androidarch.utility.Constants.SPLASH_TIME_OUT;
 
 public class SplashScreen extends AppCompatActivity {
     Intent intent;

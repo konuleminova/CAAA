@@ -1,4 +1,4 @@
-package com.crocusoft.androidarch.tabview;
+package com.crocusoft.androidarch.adapters;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;

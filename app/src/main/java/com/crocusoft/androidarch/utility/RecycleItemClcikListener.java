@@ -1,4 +1,4 @@
-package com.crocusoft.androidarch.recyclerview;
+package com.crocusoft.androidarch.utility;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;

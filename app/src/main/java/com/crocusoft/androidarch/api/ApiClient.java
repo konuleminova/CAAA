@@ -3,7 +3,7 @@ package com.crocusoft.androidarch.api;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-import static com.crocusoft.androidarch.utilities.Constants.BASE_URL;
+import static com.crocusoft.androidarch.utility.Constants.BASE_URL;
 
 /**
  * Created by Asus on 2/13/2018.

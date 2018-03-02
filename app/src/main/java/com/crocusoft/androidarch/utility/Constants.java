@@ -1,6 +1,4 @@
-package com.crocusoft.androidarch.utilities;
-
-import retrofit2.http.PUT;
+package com.crocusoft.androidarch.utility;
 
 /**
  * Created by Asus on 2/16/2018.

@@ -1,25 +1,20 @@
 package com.crocusoft.androidarch.asynctask;
 
-import android.app.Dialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
-import android.view.View;
-import android.widget.EditText;
 import android.widget.Toast;
 
 import com.crocusoft.androidarch.R;
 import com.crocusoft.androidarch.activities.LoginActivity;
 import com.crocusoft.androidarch.activities.MainActivity;
-import com.crocusoft.androidarch.utilities.SharedPreferenceUtils;
+import com.crocusoft.androidarch.utility.SharedPreferenceUtils;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -33,14 +28,11 @@ import java.net.URL;
 
 import retrofit2.http.Url;
 
-import static com.crocusoft.androidarch.utilities.Constants.DEFAULT_VALUE;
-import static com.crocusoft.androidarch.utilities.Constants.KEY_ID;
-
 /**
  * Created by Asus on 2/27/2018.
  */
 
-public class AsyncTaskUtil extends AsyncTask<Url, String, String> {
+public class LoginUserAsync extends AsyncTask<Url, String, String> {
     private BufferedReader reader;
     private String message;
     private Context context;
@@ -48,7 +40,7 @@ public class AsyncTaskUtil extends AsyncTask<Url, String, String> {
     private String username, password;
     private SharedPreferenceUtils sharedPreferenceUtils;
 
-    public AsyncTaskUtil(Context context, String username, String password) {
+    public LoginUserAsync(Context context, String username, String password) {
         this.context = context;
         this.username = username;
         this.password = password;
