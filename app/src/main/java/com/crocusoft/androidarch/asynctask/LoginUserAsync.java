@@ -34,7 +34,6 @@ import retrofit2.http.Url;
 
 public class LoginUserAsync extends AsyncTask<Url, String, String> {
     private BufferedReader reader;
-    private String message;
     private Context context;
     private AlertDialog alertDialog;
     private String username, password;
@@ -54,6 +53,7 @@ public class LoginUserAsync extends AsyncTask<Url, String, String> {
     @Override
     protected String doInBackground(Url... urls) {
         HttpURLConnection httpURLConnection = null;
+        String message=null;
 
         try {
             URL url = new URL("http://94.130.226.167/rsabackend/api/user/login");
@@ -112,7 +112,7 @@ public class LoginUserAsync extends AsyncTask<Url, String, String> {
             }
         }
 
-        return null;
+        return message;
     }
 
     @Override
@@ -124,7 +124,7 @@ public class LoginUserAsync extends AsyncTask<Url, String, String> {
     @Override
     protected void onPostExecute(String s) {
         super.onPostExecute(s);
-        if (message.equals("1000")) {
+        if (s.equals("1000")) {
             Log.d("fetch", "successful");
             Intent intent = new Intent(context, MainActivity.class);
             context.startActivity(intent);

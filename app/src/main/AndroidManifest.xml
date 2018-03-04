@@ -25,17 +25,19 @@
         <activity
             android:name=".activities.MainActivity"
             android:launchMode="singleTask" />
-        <activity android:name=".activities.LoginActivity"></activity>
-        <receiver android:name=".broadcastreciever.MyBroadcastReceiver"
+        <activity android:name=".activities.LoginActivity" />
+
+        <receiver
+            android:name=".broadcastreciever.MyBroadcastReceiver"
             android:exported="false">
             <intent-filter>
-                <action android:name="com.crocusoft.androidarch.SEND_NOTIFICATION">
-                </action>
-                <category android:name="android.intent.category.DEFAULT">
+                <action android:name="com.crocusoft.androidarch.SEND_NOTIFICATION"></action>
 
-                </category>
+                <category android:name="android.intent.category.DEFAULT"></category>
             </intent-filter>
         </receiver>
+
+        <activity android:name=".activities.Main2Activity"></activity>
     </application>
 
 </manifest>

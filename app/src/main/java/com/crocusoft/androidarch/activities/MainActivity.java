@@ -20,20 +20,18 @@ import com.crocusoft.androidarch.fragments.RecyclerFragment;
 import com.crocusoft.androidarch.fragments.SendBroadcast;
 import com.crocusoft.androidarch.fragments.SetFragmentInterface;
 import com.crocusoft.androidarch.fragments.TabFfragment;
-import com.crocusoft.androidarch.utility.MessageEvent;
-
-import org.greenrobot.eventbus.Subscribe;
+import com.crocusoft.androidarch.interfaces.FragmentDataPassInterface;
 
 import static com.crocusoft.androidarch.utility.Constants.TAG_FRAGMENT;
 
-public class MainActivity extends AppCompatActivity implements SetFragmentInterface {
+public class MainActivity extends AppCompatActivity implements SetFragmentInterface ,FragmentDataPassInterface {
     DrawerLayout drawerLayout;
     android.support.v7.widget.Toolbar toolbar;
     ActionBarDrawerToggle actionBarDrawerToggle;
     android.support.v4.app.FragmentManager fragmentManager;
     FragmentTransaction fragmentTransaction;
     TextView navHeaderText;
-     NavigationView navigationView;
+    NavigationView navigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,16 +41,25 @@ public class MainActivity extends AppCompatActivity implements SetFragmentInterf
         setNavigationView();
         RecyclerFragment recyclerFragment = new RecyclerFragment();
         setFragment(null, recyclerFragment);
-        View header=navigationView.getHeaderView(0);
-        navHeaderText=(TextView)header.findViewById(R.id.nav_header_email_text);
-        navHeaderText.setText("nav header");
-        org.greenrobot.eventbus.EventBus.getDefault().register(this);
+        View header = navigationView.getHeaderView(0);
+        navHeaderText = (TextView) header.findViewById(R.id.nav_header_email_text);
+        Bundle bundle = this.getIntent().getExtras();
+        if(bundle!=null) {
+            //String message = bundle.getString("event");
+
+
+        }
+        navHeaderText.setText("nav");
+
+        // org.greenrobot.eventbus.EventBus.getDefault().register(this);
 
     }
-    @Subscribe
-    public void onEvent(MessageEvent eventBus){
-        navHeaderText.setText(eventBus.getMessage());
-    }
+
+    /* @Subscribe
+     public void onEvent(MessageEvent eventBus){
+         navHeaderText.setText(eventBus.getMessage());
+     }
+     */
     public void setUpToolBar() {
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.tool_bar);
@@ -75,7 +82,7 @@ public class MainActivity extends AppCompatActivity implements SetFragmentInterf
     }
 
     public void setNavigationView() {
-     navigationView = (NavigationView) findViewById(R.id.navigation_view);
+        navigationView = (NavigationView) findViewById(R.id.navigation_view);
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -94,15 +101,18 @@ public class MainActivity extends AppCompatActivity implements SetFragmentInterf
                     case R.id.tabView:
                         TabFfragment tabFfragment = new TabFfragment();
                         setFragment(TAG_FRAGMENT, tabFfragment);
-                        drawerLayout.closeDrawers();break;
+                        drawerLayout.closeDrawers();
+                        break;
                     case R.id.broadCast:
-                        SendBroadcast broadcast=new SendBroadcast();
-                        setFragment(TAG_FRAGMENT,broadcast);
-                        drawerLayout.closeDrawers();break;
+                        SendBroadcast broadcast = new SendBroadcast();
+                        setFragment(TAG_FRAGMENT, broadcast);
+                        drawerLayout.closeDrawers();
+                        break;
                     case R.id.eventBus:
-                        EventBusFragment eventBusFragment =new EventBusFragment();
+                        EventBusFragment eventBusFragment = new EventBusFragment();
                         setFragment(TAG_FRAGMENT, eventBusFragment);
-                        drawerLayout.closeDrawers();break;
+                        drawerLayout.closeDrawers();
+                        break;
 
                 }
                 return true;
@@ -134,5 +144,10 @@ public class MainActivity extends AppCompatActivity implements SetFragmentInterf
         fragmentTransaction.replace(R.id.frame_container, fragment, backstackTAG);
         fragmentTransaction.addToBackStack(backstackTAG);
         fragmentTransaction.commit();
+    }
+
+    @Override
+    public void setMessage(String message) {
+        navHeaderText.setText(message);
     }
 }

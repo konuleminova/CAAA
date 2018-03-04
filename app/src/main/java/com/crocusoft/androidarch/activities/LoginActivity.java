@@ -12,6 +12,7 @@ import android.widget.Toast;
 import com.crocusoft.androidarch.R;
 import com.crocusoft.androidarch.api.ApiClient;
 import com.crocusoft.androidarch.api.ApiInterface;
+import com.crocusoft.androidarch.asynctask.LoginUserAsync;
 import com.crocusoft.androidarch.model.LoginRequest;
 import com.crocusoft.androidarch.model.LoginResponse;
 import com.crocusoft.androidarch.utility.SharedPreferenceUtils;
@@ -35,7 +36,7 @@ import static com.crocusoft.androidarch.utility.Constants.VIOLATION_UNIQUE_KEY;
 import static com.crocusoft.androidarch.utility.Constants.WRONG_API_KEY;
 import static com.crocusoft.androidarch.utility.Constants.WRONG_OLD_PASSWORD;
 import static com.crocusoft.androidarch.utility.Constants.WRONG_USERNAME_PASSWORD;
-import static com.crocusoft.androidarch.utility.Helper.setErrorMessage;
+import static com.crocusoft.androidarch.utility.Helper.showMessage;
 
 public class LoginActivity extends AppCompatActivity {
     Button btnSave;
@@ -68,9 +69,9 @@ public class LoginActivity extends AppCompatActivity {
                     editTextPassword.setError(getResources().getString(R.string.error_password));
                     editTextPassword.requestFocus();
                 } else {
-                    login();
-                    //LoginUserAsync asyncTaskUtil=new LoginUserAsync(LoginActivity.this,editTextUsername.getText().toString(),editTextPassword.getText().toString());
-                  // asyncTaskUtil.execute();
+                    //login();
+                    LoginUserAsync asyncTaskUtil = new LoginUserAsync(LoginActivity.this, editTextUsername.getText().toString(), editTextPassword.getText().toString());
+                    asyncTaskUtil.execute();
                 }
             }
         });
@@ -82,6 +83,7 @@ public class LoginActivity extends AppCompatActivity {
         editTextUsername = (EditText) findViewById(R.id.edittext_username);
         editTextPassword = (EditText) findViewById(R.id.edittext_password);
     }
+
     public void login() {
         ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
         LoginRequest loginRequest = new LoginRequest();
@@ -104,43 +106,43 @@ public class LoginActivity extends AppCompatActivity {
                 }
                 switch (response.body().getMessageId()) {
                     case 1000:
-                        setErrorMessage(getBaseContext(), SUCCESSFULL);
+                        showMessage(getBaseContext(), SUCCESSFULL);
                         break;
                     case 1001:
-                        setErrorMessage(getBaseContext(), AUTHENTICATION_ISSUE);
+                        showMessage(getBaseContext(), AUTHENTICATION_ISSUE);
                         break;
                     case 1002:
-                        setErrorMessage(getBaseContext(), AUTHORIZATION_ISSUE);
+                        showMessage(getBaseContext(), AUTHORIZATION_ISSUE);
                         break;
                     case 1003:
-                        setErrorMessage(getBaseContext(), DATABASE_EXCEPTION);
+                        showMessage(getBaseContext(), DATABASE_EXCEPTION);
                         break;
                     case 1004:
-                        setErrorMessage(getBaseContext(), DALC_EXCEPTION);
+                        showMessage(getBaseContext(), DALC_EXCEPTION);
                         break;
                     case 1005:
-                        setErrorMessage(getBaseContext(), WRONG_USERNAME_PASSWORD);
+                        showMessage(getBaseContext(), WRONG_USERNAME_PASSWORD);
                         break;
                     case 1006:
-                        setErrorMessage(getBaseContext(), WRONG_API_KEY);
+                        showMessage(getBaseContext(), WRONG_API_KEY);
                         break;
                     case 1007:
-                        setErrorMessage(getBaseContext(), NOT_VALIDATED_DATA);
+                        showMessage(getBaseContext(), NOT_VALIDATED_DATA);
                         break;
                     case 1008:
-                        setErrorMessage(getBaseContext(), COULD_NOT_DELETE_SELF);
+                        showMessage(getBaseContext(), COULD_NOT_DELETE_SELF);
                         break;
                     case 1009:
-                        setErrorMessage(getBaseContext(), VIOLATION_FOREIGN_KEY);
+                        showMessage(getBaseContext(), VIOLATION_FOREIGN_KEY);
                         break;
                     case 1010:
-                        setErrorMessage(getBaseContext(), WRONG_OLD_PASSWORD);
+                        showMessage(getBaseContext(), WRONG_OLD_PASSWORD);
                         break;
                     case 1012:
-                        setErrorMessage(getBaseContext(), DATA_NOT_FOUND);
+                        showMessage(getBaseContext(), DATA_NOT_FOUND);
                         break;
                     case 1013:
-                        setErrorMessage(getBaseContext(), VIOLATION_UNIQUE_KEY);
+                        showMessage(getBaseContext(), VIOLATION_UNIQUE_KEY);
                         break;
                 }
 
