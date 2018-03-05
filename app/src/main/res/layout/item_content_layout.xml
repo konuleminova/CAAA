@@ -5,15 +5,22 @@
     android:gravity="center"
     android:orientation="vertical">
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Item Content"
-        android:layout_gravity="center"
+        android:id="@+id/item_id"
+        android:gravity="center"
+        android:text="Id"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Item Name"
+        android:gravity="center"
         android:id="@+id/item_name"/>
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/item_content"
-        android:gravity="center"/>
+        android:id="@+id/item_surname"
+        android:gravity="center"
+        android:text="Item Surname"/>
 
 </LinearLayout>

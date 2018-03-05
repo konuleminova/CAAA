@@ -17,8 +17,8 @@ import com.crocusoft.androidarch.R;
 import com.crocusoft.androidarch.fragments.EventBusFragment;
 import com.crocusoft.androidarch.fragments.ListFragment;
 import com.crocusoft.androidarch.fragments.RecyclerFragment;
-import com.crocusoft.androidarch.fragments.SendBroadcast;
-import com.crocusoft.androidarch.fragments.SetFragmentInterface;
+import com.crocusoft.androidarch.fragments.SendBroadcastFragment;
+import com.crocusoft.androidarch.interfaces.SetFragmentInterface;
 import com.crocusoft.androidarch.fragments.TabFfragment;
 import com.crocusoft.androidarch.interfaces.FragmentDataPassInterface;
 
@@ -43,12 +43,6 @@ public class MainActivity extends AppCompatActivity implements SetFragmentInterf
         setFragment(null, recyclerFragment);
         View header = navigationView.getHeaderView(0);
         navHeaderText = (TextView) header.findViewById(R.id.nav_header_email_text);
-        Bundle bundle = this.getIntent().getExtras();
-        if(bundle!=null) {
-            //String message = bundle.getString("event");
-
-
-        }
         navHeaderText.setText("nav");
 
         // org.greenrobot.eventbus.EventBus.getDefault().register(this);
@@ -104,7 +98,7 @@ public class MainActivity extends AppCompatActivity implements SetFragmentInterf
                         drawerLayout.closeDrawers();
                         break;
                     case R.id.broadCast:
-                        SendBroadcast broadcast = new SendBroadcast();
+                        SendBroadcastFragment broadcast = new SendBroadcastFragment();
                         setFragment(TAG_FRAGMENT, broadcast);
                         drawerLayout.closeDrawers();
                         break;

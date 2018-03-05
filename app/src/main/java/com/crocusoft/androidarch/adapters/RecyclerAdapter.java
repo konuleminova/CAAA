@@ -10,7 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.crocusoft.androidarch.R;
-import com.crocusoft.androidarch.object.RecyclerObjects;
+import com.crocusoft.androidarch.model.User;
 
 import java.util.List;
 
@@ -18,13 +18,13 @@ import java.util.List;
  * Created by Asus on 2/19/2018.
  */
 
-public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ItemViewHolder>{
+public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ItemViewHolder> {
 
-    private List<RecyclerObjects> recyclerObjectsList;
+    private List<User> recyclerObjectsList;
     private Context context;
     //OnItemClickListener onItemClickListener;
 
-    public RecyclerAdapter(List<RecyclerObjects> recyclerObjectsList, Context context) {
+    public RecyclerAdapter(List<User> recyclerObjectsList, Context context) {
         this.recyclerObjectsList = recyclerObjectsList;
         this.context = context;
     }
@@ -34,20 +34,22 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ItemVi
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
         View view = layoutInflater.inflate(R.layout.items_recycleview_layout, parent, false);
         ItemViewHolder holder = new ItemViewHolder(view);
-       // onItemClickListener.onItemClick(view,holder.getLayoutPosition());
+        // onItemClickListener.onItemClick(view,holder.getLayoutPosition());
         return holder;
     }
 
     @Override
     public void onBindViewHolder(final ItemViewHolder holder, final int position) {
-        holder.recylerTextView.setText(recyclerObjectsList.get(position).getItemName());
-        holder.recylerImageView.setImageResource(recyclerObjectsList.get(position).getItemImage());
+        holder.idTextView.setText(recyclerObjectsList.get(position).getUserId());
+        holder.nameTextView.setText(recyclerObjectsList.get(position).getUserName());
+        holder.surnameTextView.setText(recyclerObjectsList.get(position).getUserSurname());
+        holder.imageView.setImageResource(recyclerObjectsList.get(position).getUserImage());
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Log.i("itemclick", recyclerObjectsList.get(position).toString());
-               // onItemClickListener.onItemClick();
-               // onItemClickListener.onItemClick(view,holder.getAdapterPosition());
+                // onItemClickListener.onItemClick();
+                // onItemClickListener.onItemClick(view,holder.getAdapterPosition());
             }
         });
     }
@@ -59,15 +61,16 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ItemVi
     }
 
 
-
     public class ItemViewHolder extends RecyclerView.ViewHolder {
-        private TextView recylerTextView;
-        private ImageView recylerImageView;
+        private TextView idTextView, nameTextView, surnameTextView;
+        private ImageView imageView;
 
         public ItemViewHolder(View itemView) {
             super(itemView);
-            recylerTextView = (TextView) itemView.findViewById(R.id.recycler_textview);
-            recylerImageView = (ImageView) itemView.findViewById(R.id.recycler_imageview);
+            idTextView = (TextView) itemView.findViewById(R.id.id_textview);
+            nameTextView = (TextView) itemView.findViewById(R.id.name_textview);
+            surnameTextView = (TextView) itemView.findViewById(R.id.surname_textview);
+            imageView = (ImageView) itemView.findViewById(R.id.recycler_imageview);
 
         }
     }

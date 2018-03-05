@@ -12,13 +12,16 @@ import android.view.ViewGroup;
 
 import com.crocusoft.androidarch.R;
 import com.crocusoft.androidarch.adapters.RecyclerAdapter;
-import com.crocusoft.androidarch.object.RecyclerObjects;
+import com.crocusoft.androidarch.interfaces.SetFragmentInterface;
+import com.crocusoft.androidarch.model.User;
 import com.crocusoft.androidarch.utility.RecycleItemClcikListener;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static android.media.CamcorderProfile.get;
+import static com.crocusoft.androidarch.utility.Constants.KEY_ID;
+import static com.crocusoft.androidarch.utility.Constants.KEY_ITEM_CONTENT;
 import static com.crocusoft.androidarch.utility.Constants.KEY_ITEM_NAME;
 import static com.crocusoft.androidarch.utility.Constants.TAG_FRAGMENT;
 
@@ -28,7 +31,7 @@ import static com.crocusoft.androidarch.utility.Constants.TAG_FRAGMENT;
 
 public class RecyclerFragment extends Fragment {
 
-    private List<RecyclerObjects> recyclerObjects;
+    private List<User> recyclerObjects;
     private RecyclerView recyclerView;
     SetFragmentInterface setFragmentInterface;
     Context context;
@@ -39,12 +42,12 @@ public class RecyclerFragment extends Fragment {
         View view = inflater.inflate(R.layout.recyler_view, container, false);
         recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
         recyclerObjects = new ArrayList<>();
-        recyclerObjects.add(new RecyclerObjects("recycler view text1", R.drawable.place));
-        recyclerObjects.add(new RecyclerObjects("recycler view tex2", R.drawable.place));
-        recyclerObjects.add(new RecyclerObjects("recycler view text3", R.drawable.place));
-        recyclerObjects.add(new RecyclerObjects("recycler view tex4", R.drawable.place));
-        recyclerObjects.add(new RecyclerObjects("recycler view text5", R.drawable.place));
-        recyclerObjects.add(new RecyclerObjects("recycler view tex6", R.drawable.place));
+        recyclerObjects.add(new User("1", "Name", "Surname", R.drawable.place));
+        recyclerObjects.add(new User("2", "Name", "Surname", R.drawable.place));
+        recyclerObjects.add(new User("3", "Name", "Surname", R.drawable.place));
+        recyclerObjects.add(new User("4", "Name", "Surname", R.drawable.place));
+        recyclerObjects.add(new User("5", "Name", "Surname", R.drawable.place));
+        recyclerObjects.add(new User("6", "Name", "Surname", R.drawable.place));
         RecyclerAdapter recyclerAdapter = new RecyclerAdapter(recyclerObjects, getActivity());
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(linearLayoutManager);
@@ -54,7 +57,9 @@ public class RecyclerFragment extends Fragment {
                     @Override
                     public void clickEvent(View v, int position) {
                         Bundle bundle = new Bundle();
-                        bundle.putString(KEY_ITEM_NAME, recyclerObjects.get(position).getItemName());
+                        bundle.putString(KEY_ITEM_NAME, recyclerObjects.get(position).getUserName());
+                        bundle.putString(KEY_ID, recyclerObjects.get(position).getUserId());
+                        bundle.putString(KEY_ITEM_CONTENT, recyclerObjects.get(position).getUserSurname());
                         ItemContentFragment itemContentFragment = new ItemContentFragment();
                         setFragmentInterface.setFragment(TAG_FRAGMENT, itemContentFragment);
                         itemContentFragment.setArguments(bundle);

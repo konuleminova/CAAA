@@ -2,14 +2,14 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    android:gravity="center">
+    android:gravity="center"
+    android:orientation="horizontal">
 
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="200dp"
-        android:layout_margin="8dp"
-        android:layout_gravity="center">
+        android:layout_gravity="center"
+        android:layout_margin="8dp">
 
         <FrameLayout
             android:layout_width="match_parent"
@@ -19,21 +19,39 @@
             <ImageView
                 android:id="@+id/recycler_imageview"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                />
+                android:layout_height="match_parent" />
 
             <TextView
-                android:id="@+id/recycler_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginBottom="30dp"
+                android:text="ID"
+                android:textColor="@color/white"
+                android:id="@+id/id_textview"
+                android:textSize="20sp"/>
+
+            <TextView
+                android:id="@+id/name_textview"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginBottom="10dp"
-                android:layout_marginLeft="10dp"
                 android:layout_marginTop="10dp"
                 android:text="Sample Recycler View"
                 android:textColor="@color/white"
                 android:textSize="20sp"
                 />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Surname"
+                android:layout_gravity="center"
+                android:layout_marginTop="30dp"
+                android:textColor="@color/white"
+                android:id="@+id/surname_textview"
+                android:textSize="20sp"/>
+
         </FrameLayout>
     </android.support.v7.widget.CardView>
 </LinearLayout>

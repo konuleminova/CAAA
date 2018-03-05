@@ -15,7 +15,7 @@ import com.crocusoft.androidarch.R;
  * Created by Asus on 3/1/2018.
  */
 
-public class SendBroadcast extends Fragment {
+public class SendBroadcastFragment extends Fragment {
     Button setBroadcast;
     @Nullable
     @Override

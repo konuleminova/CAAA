@@ -12,7 +12,6 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.crocusoft.androidarch.R;
-import com.crocusoft.androidarch.activities.Main2Activity;
 import com.crocusoft.androidarch.events.MessageEvent;
 import com.crocusoft.androidarch.interfaces.FragmentDataPassInterface;
 
@@ -49,8 +48,6 @@ public class EventBusFragment extends Fragment {
                 MessageEvent eventBus = new MessageEvent();
                 eventBus.setMessage(message);
                 org.greenrobot.eventbus.EventBus.getDefault().post(eventBus);
-                Intent intent = new Intent(getActivity(), Main2Activity.class);
-                startActivity(intent);
 
             }
         });

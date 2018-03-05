@@ -9,9 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.crocusoft.androidarch.R;
-import com.crocusoft.androidarch.object.ListObjects;
-
-import org.w3c.dom.Text;
+import com.crocusoft.androidarch.model.User;
 
 import java.util.List;
 
@@ -21,9 +19,9 @@ import java.util.List;
 
 public class ListAdapter extends BaseAdapter {
     private Context context;
-    private List<ListObjects> listObjectsList;
+    private List<User> listObjectsList;
 
-    public ListAdapter(Context context, List<ListObjects> listObjectsList) {
+    public ListAdapter(Context context, List<User> listObjectsList) {
         this.context = context;
         this.listObjectsList = listObjectsList;
     }

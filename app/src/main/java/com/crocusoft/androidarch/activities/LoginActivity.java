@@ -12,11 +12,10 @@ import android.widget.Toast;
 import com.crocusoft.androidarch.R;
 import com.crocusoft.androidarch.api.ApiClient;
 import com.crocusoft.androidarch.api.ApiInterface;
-import com.crocusoft.androidarch.asynctask.LoginUserAsync;
-import com.crocusoft.androidarch.model.LoginRequest;
-import com.crocusoft.androidarch.model.LoginResponse;
+import com.crocusoft.androidarch.model.User;
 import com.crocusoft.androidarch.utility.SharedPreferenceUtils;
 
+import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
@@ -69,9 +68,9 @@ public class LoginActivity extends AppCompatActivity {
                     editTextPassword.setError(getResources().getString(R.string.error_password));
                     editTextPassword.requestFocus();
                 } else {
-                    //login();
-                    LoginUserAsync asyncTaskUtil = new LoginUserAsync(LoginActivity.this, editTextUsername.getText().toString(), editTextPassword.getText().toString());
-                    asyncTaskUtil.execute();
+                    login();
+                    // LoginUserAsync asyncTaskUtil = new LoginUserAsync(LoginActivity.this, editTextUsername.getText().toString(), editTextPassword.getText().toString());
+                    //asyncTaskUtil.execute();
                 }
             }
         });
@@ -86,13 +85,14 @@ public class LoginActivity extends AppCompatActivity {
 
     public void login() {
         ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
-        LoginRequest loginRequest = new LoginRequest();
+        User loginRequest = new User();
         loginRequest.setUsername(editTextUsername.getText().toString());
         loginRequest.setPassword(editTextPassword.getText().toString());
         loginRequest.setApikey(API_KEY);
-        apiInterface.login(loginRequest).enqueue(new Callback<LoginResponse>() {
+        Call<User.LoginResponse> call=apiInterface.login(loginRequest);
+        call.enqueue(new Callback<User.LoginResponse>() {
             @Override
-            public void onResponse(retrofit2.Call<LoginResponse> call, Response<LoginResponse> response) {
+            public void onResponse(Call<User.LoginResponse> call, Response<User.LoginResponse> response) {
                 if (response.body().getId() != null) {
                     id = response.body().getId();
                     sharedPreferenceUtils.setIntegerData(KEY_ID, response.body().getId());
@@ -145,13 +145,13 @@ public class LoginActivity extends AppCompatActivity {
                         showMessage(getBaseContext(), VIOLATION_UNIQUE_KEY);
                         break;
                 }
-
             }
 
             @Override
-            public void onFailure(retrofit2.Call<LoginResponse> call, Throwable t) {
+            public void onFailure(Call<User.LoginResponse> call, Throwable t) {
                 Toast.makeText(getBaseContext(), getResources().getString(R.string.system_fail), Toast.LENGTH_LONG).show();
             }
         });
+
     }
 }

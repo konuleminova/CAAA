@@ -15,10 +15,10 @@
         android:layout_marginTop="100dp"
         android:text="Navigation View"
         android:textColor="#ffff"
-        android:textSize="30sp" />
+        android:textSize="30sp"
+        android:id="@+id/nav_header_email_text"/>
 
     <TextView
-        android:id="@+id/nav_header_email_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"

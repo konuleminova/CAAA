@@ -12,7 +12,7 @@ import static com.crocusoft.androidarch.utility.Constants.DEFAULT_VALUE;
 import static com.crocusoft.androidarch.utility.Constants.KEY_TOKEN;
 import static com.crocusoft.androidarch.utility.Constants.SPLASH_TIME_OUT;
 
-public class SplashScreen extends AppCompatActivity {
+public class SplashActivity extends AppCompatActivity {
     Intent intent;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,12 +21,12 @@ public class SplashScreen extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                SharedPreferenceUtils utils = new SharedPreferenceUtils(SplashScreen.this);
+                SharedPreferenceUtils utils = new SharedPreferenceUtils(SplashActivity.this);
                 String token = utils.getStringData(KEY_TOKEN, DEFAULT_VALUE);
                 if (token.equals(DEFAULT_VALUE)) {
-                    intent = new Intent(SplashScreen.this, LoginActivity.class);
+                    intent = new Intent(SplashActivity.this, LoginActivity.class);
                 } else {
-                    intent = new Intent(SplashScreen.this, MainActivity.class);
+                    intent = new Intent(SplashActivity.this, MainActivity.class);
                 }
                 startActivity(intent);
                 finish();

@@ -14,7 +14,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".activities.SplashScreen"
+            android:name=".activities.SplashActivity"
             android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -37,7 +37,6 @@
             </intent-filter>
         </receiver>
 
-        <activity android:name=".activities.Main2Activity"></activity>
     </application>
 
 </manifest>

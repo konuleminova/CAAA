@@ -1,4 +1,4 @@
-package com.crocusoft.androidarch.fragments;
+package com.crocusoft.androidarch.interfaces;
 
 import android.content.Context;
 import android.support.v4.app.Fragment;
