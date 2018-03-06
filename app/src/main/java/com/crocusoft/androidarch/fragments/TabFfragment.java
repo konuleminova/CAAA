@@ -28,8 +28,8 @@ public class TabFfragment extends Fragment {
         viewPager = (ViewPager) view.findViewById(R.id.viewpager);
         tabLayout = (TabLayout) view.findViewById(R.id.tab_layout);
         TabsPagerAdapter adapter = new TabsPagerAdapter(this.getChildFragmentManager());
-        adapter.add(new RecyclerFragment(),"Recycler View");
-        adapter.add(new ListFragment(),"List View");
+        adapter.add(new RecyclerFragment(),this.getResources().getString(R.string.recycle_view));
+        adapter.add(new ListFragment(),this.getResources().getString(R.string.list_view));
         viewPager.setAdapter(adapter);
         tabLayout.setupWithViewPager(viewPager);
         return view;

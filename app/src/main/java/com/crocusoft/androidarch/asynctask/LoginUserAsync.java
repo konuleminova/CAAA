@@ -10,6 +10,8 @@ import android.widget.Toast;
 import com.crocusoft.androidarch.R;
 import com.crocusoft.androidarch.activities.LoginActivity;
 import com.crocusoft.androidarch.activities.MainActivity;
+import com.crocusoft.androidarch.model.User;
+import com.crocusoft.androidarch.utility.Helper;
 import com.crocusoft.androidarch.utility.SharedPreferenceUtils;
 
 import org.json.JSONException;
@@ -28,6 +30,11 @@ import java.net.URL;
 
 import retrofit2.http.Url;
 
+import static com.crocusoft.androidarch.utility.Constants.API;
+import static com.crocusoft.androidarch.utility.Constants.API_KEY;
+import static com.crocusoft.androidarch.utility.Constants.PASSWORD;
+import static com.crocusoft.androidarch.utility.Constants.USERNAME;
+
 /**
  * Created by Asus on 2/27/2018.
  */
@@ -36,39 +43,43 @@ public class LoginUserAsync extends AsyncTask<Url, String, String> {
     private BufferedReader reader;
     private Context context;
     private AlertDialog alertDialog;
-    private String username, password;
+    private User user;
     private SharedPreferenceUtils sharedPreferenceUtils;
 
-    public LoginUserAsync(Context context, String username, String password) {
+    public LoginUserAsync(Context context, User user) {
         this.context = context;
-        this.username = username;
-        this.password = password;
-        alertDialog = new AlertDialog.Builder(context).create();
-        alertDialog.setMessage("Please Wait ... ");
-        alertDialog.setIcon(R.drawable.backbutton);
+        this.user = user;
+        setAlertDialog();
         sharedPreferenceUtils = new SharedPreferenceUtils(context);
         //LoginActivity activity=(LoginActivity)context;
+    }
+
+    private void setAlertDialog() {
+        alertDialog = new AlertDialog.Builder(context).create();
+        alertDialog.setMessage(context.getResources().getString(R.string.please_wait));
+        alertDialog.setIcon(R.drawable.backbutton);
+
     }
 
     @Override
     protected String doInBackground(Url... urls) {
         HttpURLConnection httpURLConnection = null;
-        String message=null;
+        String message = null;
 
         try {
-            URL url = new URL("http://94.130.226.167/rsabackend/api/user/login");
+            URL url = new URL(context.getResources().getString(R.string.url));
             httpURLConnection = (HttpURLConnection) url.openConnection();
             httpURLConnection.setConnectTimeout(15000);
             httpURLConnection.setReadTimeout(15000);
-            httpURLConnection.setRequestMethod("POST");
-            httpURLConnection.setRequestProperty("Content-Type", "application/json");
-            httpURLConnection.setRequestProperty("Accept", "application/json");
+            httpURLConnection.setRequestMethod(context.getResources().getString(R.string.post));
+            httpURLConnection.setRequestProperty(context.getResources().getString(R.string.content_type), context.getResources().getString(R.string.app_json));
+            httpURLConnection.setRequestProperty(context.getResources().getString(R.string.accept), context.getResources().getString(R.string.app_json));
             httpURLConnection.setDoInput(true);
             httpURLConnection.setDoInput(true);
             JSONObject jsonObject = new JSONObject();
-            jsonObject.put("Username", username);
-            jsonObject.put("Password", password);
-            jsonObject.put("ApiKey", "987654");
+            jsonObject.put(USERNAME, user.getUsername());//user.getPassword();
+            jsonObject.put(PASSWORD, user.getPassword());
+            jsonObject.put(API, API_KEY);
             OutputStream outputStream = httpURLConnection.getOutputStream();
             BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
             bufferedWriter.write(jsonObject.toString());
@@ -78,7 +89,6 @@ public class LoginUserAsync extends AsyncTask<Url, String, String> {
             //httpURLConnection.connect();
             int responseCode = httpURLConnection.getResponseCode();
             if (responseCode == HttpURLConnection.HTTP_OK) {
-                Log.d("fetch", "url");
             }
             InputStream stream = httpURLConnection.getInputStream();
             reader = new BufferedReader(new InputStreamReader(stream));
@@ -130,7 +140,7 @@ public class LoginUserAsync extends AsyncTask<Url, String, String> {
             context.startActivity(intent);
             ((LoginActivity) context).finish();
         } else {
-            Toast.makeText(context, "Your username or password is incorrect", Toast.LENGTH_LONG).show();
+            Helper.showMessage(context, context.getResources().getString(R.string.error_login));
         }
         alertDialog.dismiss();
     }

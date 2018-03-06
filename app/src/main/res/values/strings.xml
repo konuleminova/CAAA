@@ -7,6 +7,18 @@
     <string name="hint_username">username</string>
     <string name="hint_password">password</string>
     <string name="button_text">Ok</string>
+    <string name="please_wait">Please Wait ..</string>
+    <string name="url">http://94.130.226.167/rsabackend/api/user/login</string>
+    <string name="post">POST</string>
+    <string name="content_type">Content-Type</string>
+    <string name="app_json">application/json</string>
+    <string name="accept">Accept</string>
+    <string name="error_login">Your username or password is wrong</string>
+    <string name="broadcast_trigger">Broadcast reciever is triggered</string>
+    <string name="successfull">SUCCESSFULL</string>
+    <string name="broadcast_recieve_message">\"Your broadcast message is received</string>
+    <string name="recycle_view">Recycler View</string>
+    <string name="list_view">List View</string>
 
 
 </resources>

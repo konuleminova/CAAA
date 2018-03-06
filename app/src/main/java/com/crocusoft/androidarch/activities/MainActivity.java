@@ -24,7 +24,7 @@ import com.crocusoft.androidarch.interfaces.FragmentDataPassInterface;
 
 import static com.crocusoft.androidarch.utility.Constants.TAG_FRAGMENT;
 
-public class MainActivity extends AppCompatActivity implements SetFragmentInterface ,FragmentDataPassInterface {
+public class MainActivity extends AppCompatActivity implements SetFragmentInterface, FragmentDataPassInterface {
     DrawerLayout drawerLayout;
     android.support.v7.widget.Toolbar toolbar;
     ActionBarDrawerToggle actionBarDrawerToggle;
@@ -43,8 +43,6 @@ public class MainActivity extends AppCompatActivity implements SetFragmentInterf
         setFragment(null, recyclerFragment);
         View header = navigationView.getHeaderView(0);
         navHeaderText = (TextView) header.findViewById(R.id.nav_header_email_text);
-        navHeaderText.setText("nav");
-
         // org.greenrobot.eventbus.EventBus.getDefault().register(this);
 
     }
@@ -85,27 +83,27 @@ public class MainActivity extends AppCompatActivity implements SetFragmentInterf
                     case R.id.recyclerView:
                         RecyclerFragment recyclerFragment = new RecyclerFragment();
                         setFragment(null, recyclerFragment);
-                        drawerLayout.closeDrawers();
+                        closeDrawer();
                         break;
                     case R.id.listView:
                         ListFragment listFragment = new ListFragment();
                         setFragment(TAG_FRAGMENT, listFragment);
-                        drawerLayout.closeDrawers();
+                        closeDrawer();
                         break;
                     case R.id.tabView:
                         TabFfragment tabFfragment = new TabFfragment();
                         setFragment(TAG_FRAGMENT, tabFfragment);
-                        drawerLayout.closeDrawers();
+                        closeDrawer();
                         break;
                     case R.id.broadCast:
                         SendBroadcastFragment broadcast = new SendBroadcastFragment();
                         setFragment(TAG_FRAGMENT, broadcast);
-                        drawerLayout.closeDrawers();
+                        closeDrawer();
                         break;
                     case R.id.eventBus:
                         EventBusFragment eventBusFragment = new EventBusFragment();
                         setFragment(TAG_FRAGMENT, eventBusFragment);
-                        drawerLayout.closeDrawers();
+                        closeDrawer();
                         break;
 
                 }
@@ -113,6 +111,10 @@ public class MainActivity extends AppCompatActivity implements SetFragmentInterf
             }
         });
 
+    }
+
+    private void closeDrawer() {
+        drawerLayout.closeDrawers();
     }
 
     @Override

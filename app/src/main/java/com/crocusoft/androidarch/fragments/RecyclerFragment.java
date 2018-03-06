@@ -57,9 +57,9 @@ public class RecyclerFragment extends Fragment {
                     @Override
                     public void clickEvent(View v, int position) {
                         Bundle bundle = new Bundle();
-                        bundle.putString(KEY_ITEM_NAME, recyclerObjects.get(position).getUserName());
+                        bundle.putString(KEY_ITEM_NAME, recyclerObjects.get(position).getName());
                         bundle.putString(KEY_ID, recyclerObjects.get(position).getUserId());
-                        bundle.putString(KEY_ITEM_CONTENT, recyclerObjects.get(position).getUserSurname());
+                        bundle.putString(KEY_ITEM_CONTENT, recyclerObjects.get(position).getSurname());
                         ItemContentFragment itemContentFragment = new ItemContentFragment();
                         setFragmentInterface.setFragment(TAG_FRAGMENT, itemContentFragment);
                         itemContentFragment.setArguments(bundle);

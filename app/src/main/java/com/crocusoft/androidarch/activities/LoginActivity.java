@@ -12,6 +12,7 @@ import android.widget.Toast;
 import com.crocusoft.androidarch.R;
 import com.crocusoft.androidarch.api.ApiClient;
 import com.crocusoft.androidarch.api.ApiInterface;
+import com.crocusoft.androidarch.asynctask.LoginUserAsync;
 import com.crocusoft.androidarch.model.User;
 import com.crocusoft.androidarch.utility.SharedPreferenceUtils;
 
@@ -69,8 +70,13 @@ public class LoginActivity extends AppCompatActivity {
                     editTextPassword.requestFocus();
                 } else {
                     login();
-                    // LoginUserAsync asyncTaskUtil = new LoginUserAsync(LoginActivity.this, editTextUsername.getText().toString(), editTextPassword.getText().toString());
-                    //asyncTaskUtil.execute();
+                   /* User user = new User();
+                    user.setUsername(editTextUsername.getText().toString());
+                    user.setPassword(editTextPassword.getText().toString());
+                    user.setApiKey(API_KEY);
+                    LoginUserAsync asyncTaskUtil = new LoginUserAsync(LoginActivity.this, user);
+                    asyncTaskUtil.execute();
+                    */
                 }
             }
         });
@@ -85,14 +91,14 @@ public class LoginActivity extends AppCompatActivity {
 
     public void login() {
         ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
-        User loginRequest = new User();
-        loginRequest.setUsername(editTextUsername.getText().toString());
-        loginRequest.setPassword(editTextPassword.getText().toString());
-        loginRequest.setApikey(API_KEY);
-        Call<User.LoginResponse> call=apiInterface.login(loginRequest);
-        call.enqueue(new Callback<User.LoginResponse>() {
+        User user = new User();
+        user.setUsername(editTextUsername.getText().toString());
+        user.setPassword(editTextPassword.getText().toString());
+        user.setApiKey(API_KEY);
+        Call<User> call = apiInterface.login(user);
+        call.enqueue(new Callback<User>() {
             @Override
-            public void onResponse(Call<User.LoginResponse> call, Response<User.LoginResponse> response) {
+            public void onResponse(Call<User> call, Response<User> response) {
                 if (response.body().getId() != null) {
                     id = response.body().getId();
                     sharedPreferenceUtils.setIntegerData(KEY_ID, response.body().getId());
@@ -148,7 +154,7 @@ public class LoginActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<User.LoginResponse> call, Throwable t) {
+            public void onFailure(Call<User> call, Throwable t) {
                 Toast.makeText(getBaseContext(), getResources().getString(R.string.system_fail), Toast.LENGTH_LONG).show();
             }
         });

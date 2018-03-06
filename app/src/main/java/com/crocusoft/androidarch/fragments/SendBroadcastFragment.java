@@ -11,6 +11,8 @@ import android.widget.Button;
 
 import com.crocusoft.androidarch.R;
 
+import static com.crocusoft.androidarch.utility.Constants.BROADCAST_NOTIFICATION_ACTION;
+
 /**
  * Created by Asus on 3/1/2018.
  */
@@ -27,7 +29,7 @@ public class SendBroadcastFragment extends Fragment {
             public void onClick(View view) {
                 Intent intent=new Intent();
                 intent.addCategory(Intent.CATEGORY_DEFAULT);
-                intent.setAction("com.crocusoft.androidarch.SEND_NOTIFICATION");
+                intent.setAction(BROADCAST_NOTIFICATION_ACTION);
                 getActivity().sendBroadcast(intent);
 
             }

@@ -55,8 +55,8 @@ public class ListFragment extends Fragment {
                 Log.i("itemlist", listObjects.get(i).toString());
                 Bundle bundle = new Bundle();
                 bundle.putString(KEY_ID,listObjects.get(i).getUserId().toString());
-                bundle.putString(KEY_ITEM_NAME, listObjects.get(i).getUserName().toString());
-                bundle.putString(KEY_ITEM_CONTENT, listObjects.get(i).getUserSurname().toString());
+                bundle.putString(KEY_ITEM_NAME, listObjects.get(i).getName().toString());
+                bundle.putString(KEY_ITEM_CONTENT, listObjects.get(i).getSurname().toString());
                 ItemContentFragment fragment = new ItemContentFragment();
                 setFragmentInterface.setFragment(TAG_FRAGMENT, fragment);
                 fragment.setArguments(bundle);

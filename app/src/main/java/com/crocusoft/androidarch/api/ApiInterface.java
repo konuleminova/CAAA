@@ -1,6 +1,7 @@
 package com.crocusoft.androidarch.api;
 
 import com.crocusoft.androidarch.model.User;
+import com.crocusoft.androidarch.model.UserDetailsResponse;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -12,5 +13,5 @@ import retrofit2.http.POST;
 
 public interface ApiInterface {
     @POST("login")
-    Call<User.LoginResponse> login(@Body User user);
+    Call<User> login(@Body User user);
 }

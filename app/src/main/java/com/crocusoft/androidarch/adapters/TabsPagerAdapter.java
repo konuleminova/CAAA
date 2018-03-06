@@ -22,6 +22,7 @@ public class TabsPagerAdapter extends FragmentPagerAdapter {
     public TabsPagerAdapter(FragmentManager fm) {
         super(fm);
     }
+
     public void add(Fragment fragment, String title) {
         fragmentList.add(fragment);
         fragmentName.add(title);

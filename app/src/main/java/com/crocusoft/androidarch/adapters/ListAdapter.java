@@ -19,22 +19,22 @@ import java.util.List;
 
 public class ListAdapter extends BaseAdapter {
     private Context context;
-    private List<User> listObjectsList;
+    private List<User> userList;
 
-    public ListAdapter(Context context, List<User> listObjectsList) {
+    public ListAdapter(Context context, List<User> userList) {
         this.context = context;
-        this.listObjectsList = listObjectsList;
+        this.userList = userList;
     }
 
     @Override
     public int getCount() {
 
-        return listObjectsList.size();
+        return userList.size();
     }
 
     @Override
     public Object getItem(int i) {
-        return listObjectsList.get(i);
+        return userList.get(i);
     }
 
     @Override
@@ -52,10 +52,10 @@ public class ListAdapter extends BaseAdapter {
         } else {
             viewHolder = (CustomViewHolder) view.getTag();
         }
-        viewHolder.userId.setText(listObjectsList.get(i).getUserId());
-        viewHolder.itemImage.setImageResource(listObjectsList.get(i).getUserImage());
-        viewHolder.itemName.setText(listObjectsList.get(i).getUserName());
-        viewHolder.itemContent.setText(listObjectsList.get(i).getUserSurname());
+        viewHolder.userId.setText(userList.get(i).getUserId());
+        viewHolder.itemImage.setImageResource(userList.get(i).getImage());
+        viewHolder.itemName.setText(userList.get(i).getName());
+        viewHolder.itemContent.setText(userList.get(i).getSurname());
         return view;
     }
 

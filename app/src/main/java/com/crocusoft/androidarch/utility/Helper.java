@@ -9,8 +9,8 @@ import android.widget.Toast;
 
 public class Helper {
 
-    public static void showMessage(Context context, String errorMessage) {
-        Toast.makeText(context, errorMessage, Toast.LENGTH_LONG).show();
+    public static void showMessage(Context context, String showMessage) {
+        Toast.makeText(context, showMessage, Toast.LENGTH_LONG).show();
     }
 
 }

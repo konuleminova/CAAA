@@ -5,12 +5,12 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v4.app.NotificationCompat;
-import android.support.v4.app.NotificationManagerCompat;
-import android.widget.Toast;
 
 import com.crocusoft.androidarch.R;
+import com.crocusoft.androidarch.utility.Helper;
 
-import java.util.logging.Handler;
+import static com.crocusoft.androidarch.utility.Constants.CHANNEl_ID;
+import static com.crocusoft.androidarch.utility.Constants.NOTIFY_RECEIVE_TIMEOUT;
 
 /**
  * Created by Asus on 3/1/2018.
@@ -19,22 +19,22 @@ import java.util.logging.Handler;
 public class MyBroadcastReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(final Context context, Intent intent) {
-        Toast.makeText(context, "Broadcast reciever is triggered", Toast.LENGTH_SHORT).show();
+        Helper.showMessage(context,context.getResources().getString(R.string.broadcast_trigger));
         android.os.Handler handler = new android.os.Handler();
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
                 showNotification(context);
             }
-        }, 5000);
+        }, NOTIFY_RECEIVE_TIMEOUT);
     }
 
     private void showNotification(Context context) {
-        String CHANNEl_ID = "my_channel_id_01";
+
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context, CHANNEl_ID);
         builder.setSmallIcon(R.drawable.sendbroadcasticon);
-        builder.setContentTitle("Successful");
-        builder.setContentText("Your broadcast message is received");
+        builder.setContentTitle(context.getResources().getString(R.string.successfull));
+        builder.setContentText(context.getResources().getString(R.string.broadcast_recieve_message));
         NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         notificationManager.notify(1, builder.build());
 

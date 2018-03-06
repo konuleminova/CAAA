@@ -20,12 +20,11 @@ import java.util.List;
 
 public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ItemViewHolder> {
 
-    private List<User> recyclerObjectsList;
+    private List<User> userList;
     private Context context;
-    //OnItemClickListener onItemClickListener;
 
-    public RecyclerAdapter(List<User> recyclerObjectsList, Context context) {
-        this.recyclerObjectsList = recyclerObjectsList;
+    public RecyclerAdapter(List<User> userList, Context context) {
+        this.userList = userList;
         this.context = context;
     }
 
@@ -34,30 +33,21 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ItemVi
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
         View view = layoutInflater.inflate(R.layout.items_recycleview_layout, parent, false);
         ItemViewHolder holder = new ItemViewHolder(view);
-        // onItemClickListener.onItemClick(view,holder.getLayoutPosition());
         return holder;
     }
 
     @Override
     public void onBindViewHolder(final ItemViewHolder holder, final int position) {
-        holder.idTextView.setText(recyclerObjectsList.get(position).getUserId());
-        holder.nameTextView.setText(recyclerObjectsList.get(position).getUserName());
-        holder.surnameTextView.setText(recyclerObjectsList.get(position).getUserSurname());
-        holder.imageView.setImageResource(recyclerObjectsList.get(position).getUserImage());
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Log.i("itemclick", recyclerObjectsList.get(position).toString());
-                // onItemClickListener.onItemClick();
-                // onItemClickListener.onItemClick(view,holder.getAdapterPosition());
-            }
-        });
+        holder.idTextView.setText(userList.get(position).getUserId());
+        holder.nameTextView.setText(userList.get(position).getName());
+        holder.surnameTextView.setText(userList.get(position).getSurname());
+        holder.imageView.setImageResource(userList.get(position).getImage());
     }
 
 
     @Override
     public int getItemCount() {
-        return recyclerObjectsList.size();
+        return userList.size();
     }
 
 

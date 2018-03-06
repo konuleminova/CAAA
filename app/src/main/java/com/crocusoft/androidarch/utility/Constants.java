@@ -31,6 +31,14 @@ public class Constants {
     //fragments
     public static String KEY_ITEM_NAME = "item_name";
     public static String KEY_ITEM_CONTENT = "item_content";
-    public static String  TAG_FRAGMENT = "tag";
+    public static String TAG_FRAGMENT = "tag";
+    //ASYNC
+    public static String USERNAME = "Username";
+    public static String PASSWORD = "Password";
+    public static String API = "ApiKey";
+    //broadcast
+    public static  String CHANNEl_ID = "my_channel_id_01";
+    public static Integer NOTIFY_RECEIVE_TIMEOUT =5000;
+    public static String BROADCAST_NOTIFICATION_ACTION="com.crocusoft.androidarch.SEND_NOTIFICATION";
 
 }
